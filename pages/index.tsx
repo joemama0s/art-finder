@@ -46,6 +46,7 @@ export default function Home(props) {
       .limit(LIMIT);
 
     const newPosts = (await query.get()).docs.map((doc) => doc.data());
+    console.log("NEW POSTS", newPosts)
 
     setPosts(posts.concat(newPosts));
     setLoading(false);

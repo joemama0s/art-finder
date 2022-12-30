@@ -7,12 +7,13 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDANLJQg8aejzyoNpsuw2Oe9naEH-CJWkk",
-  authDomain: "art-finder-44e0a.firebaseapp.com",
-  projectId: "art-finder-44e0a",
-  storageBucket: "art-finder-44e0a.appspot.com",
-  messagingSenderId: "352251701367",
-  appId: "1:352251701367:web:46a62569d9affcf7a9fe72",
+  apiKey: "AIzaSyCwZl0EPoG9hLNYfeioMbHb5oGg_LZiVQ4",
+  authDomain: "art-finder-a0157.firebaseapp.com",
+  projectId: "art-finder-a0157",
+  storageBucket: "art-finder-a0157.appspot.com",
+  messagingSenderId: "3342824917",
+  appId: "1:3342824917:web:893449f2bc8246f8beb95c",
+  measurementId: "G-NZ8K59K9V4"
 };
 
 let app;
