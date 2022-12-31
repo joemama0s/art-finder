@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// TODO This needs to be stored in a config file that is NOT pushed to github
 const firebaseConfig = {
   apiKey: "AIzaSyCwZl0EPoG9hLNYfeioMbHb5oGg_LZiVQ4",
   authDomain: "art-finder-a0157.firebaseapp.com",
@@ -13,7 +14,7 @@ const firebaseConfig = {
   storageBucket: "art-finder-a0157.appspot.com",
   messagingSenderId: "3342824917",
   appId: "1:3342824917:web:893449f2bc8246f8beb95c",
-  measurementId: "G-NZ8K59K9V4"
+  measurementId: "G-NZ8K59K9V4",
 };
 
 let app;
@@ -35,24 +36,28 @@ export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
  * Gets a users/{uid} document with username
  * @param  {string} username
  */
-export async function getUserWithUsername(username) {
+export async function getUserWithUsername(username: String) {
   const usersRef = firestore.collection("users");
   const query = usersRef.where("username", "==", username).limit(1);
   const userDoc = (await query.get()).docs[0];
   return userDoc;
 }
 
+export async function getUserWithEmail(email: String) {}
+
 /**`
  * Converts a firestore document to JSON
  * @param  {DocumentSnapshot} doc
  */
-export function postToJSON(doc) {
+export function postToJSON(
+  doc: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+) {
   const data = doc.data();
   return {
     ...data,
     // Gotcha! firestore timestamp NOT serializable to JSON. Must convert to milliseconds
-    createdAt: data.createdAt.toMillis(),
-    updatedAt: data.updatedAt.toMillis(),
+    createdAt: data!.createdAt.toMillis(),
+    updatedAt: data!.updatedAt.toMillis(),
   };
 }
 

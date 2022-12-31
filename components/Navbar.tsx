@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { useContext } from "react";
-import { UserContext } from "../lib/context";
+import { useUser } from "./../lib/context";
 import Image from "next/image";
 
 function Navbar() {
-  const { user, username } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   return (
     <nav className="navbar">
@@ -17,7 +17,7 @@ function Navbar() {
         </li>
 
         {/* user is signed-in and has username */}
-        {username && (
+        {user?.username && (
           <>
             <li className="push-left">
               <Link href="/admin">
@@ -25,7 +25,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href={`/${username}`}>
+              <Link href={`/${user.username}`}>
                 {/* <img src={user?.photoURL} /> */}
                 <a>
                   <Image
@@ -41,14 +41,16 @@ function Navbar() {
         )}
 
         {/* user is not signed OR has not created username */}
-        {!username && (
+        {user ? (
+          <p>User logged in</p>
+        ) : (
           <li>
-            <Link href="/enter">
+            <Link href="/login">
               <button className="btn-blue">Log in</button>
             </Link>
           </li>
         )}
-        {username && <h1>{username}</h1>}
+        {user?.username && <h1>{user.username}</h1>}
       </ul>
     </nav>
   );

@@ -1,19 +1,16 @@
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import { Toaster } from "react-hot-toast";
-import { UserContext } from "../lib/context";
-import { useUserData } from "../lib/hooks";
+import UserContext from "../lib/context";
+import type { AppProps } from "next/app";
 import { useState } from "react";
+import AuthContext from "../lib/context";
 
-function MyApp({ Component, pageProps }) {
-  const userData = useUserData();
-
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <UserContext.Provider value={userData}>
-      <Navbar />
+    <AuthContext>
       <Component {...pageProps} />
-      <Toaster />
-    </UserContext.Provider>
+    </AuthContext>
   );
 }
 

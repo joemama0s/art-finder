@@ -31,18 +31,14 @@ export default function AdminPostEdit(props) {
     async function getPost() {
       const username = "idk";
       const { slug } = router.query;
-      console.log(slug);
       const userDoc = await getUserWithUsername(username);
       const postQuery = userDoc.ref.collection("posts").doc(slug);
       const postResp = await postQuery.get();
       setPost(postResp.data());
     }
     getPost();
-    console.log("IM GETTING THE DATA");
   }, [router.query, post]);
 
-  console.log("POST");
-  console.log(post);
   return (
     <AuthCheck>
       <PostManager post={post} />
