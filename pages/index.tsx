@@ -28,7 +28,7 @@ export default function Index(props: { posts: PostStruct[] }) {
       {/*  Site header */}
       {/* <Header /> */}
       <Navbar />
-      <h1>my header</h1>
+      <h1>my header part 2</h1>
 
       {/*  Page content */}
       <main className="flex-grow">
