@@ -2,9 +2,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { useUser } from "./context";
+import { PostStruct } from "./../types/posts";
 
 // TODO This needs to be stored in a config file that is NOT pushed to github
 const firebaseConfig = {
@@ -45,6 +47,17 @@ export async function getUserWithUsername(username: String) {
 
 export async function getUserWithEmail(email: String) {}
 
+export async function logOutUser() {
+  signOut(auth)
+    .then(() => {
+      console.log("User signed out");
+    })
+    .catch((error) => {
+      console.log(error);
+      // An error happened.
+    });
+}
+
 /**`
  * Converts a firestore document to JSON
  * @param  {DocumentSnapshot} doc
@@ -59,6 +72,25 @@ export function postToJSON(
     createdAt: data!.createdAt.toMillis(),
     updatedAt: data!.updatedAt.toMillis(),
   };
+}
+
+/**`
+ * Converts a firestore document to JSON
+ * @param  {DocumentSnapshot} doc
+ */
+export function postToPostStruct(
+  doc: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+): PostStruct {
+  const data = doc.data();
+
+  const postStruct: PostStruct = {
+    title: data!.title,
+    content: data!.content,
+    published: data!.published,
+    createdAt: data!.createdAt.toMillis(),
+    updatedAt: data!.updatedAt.toMillis(),
+  };
+  return postStruct;
 }
 
 export const fromMillis = firebase.firestore.Timestamp.fromMillis;

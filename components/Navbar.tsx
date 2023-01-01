@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import { useUser } from "./../lib/context";
 import Image from "next/image";
+import { logOutUser } from "../lib/firebase";
 
 function Navbar() {
   const { user, setUser } = useUser();
@@ -24,25 +25,29 @@ function Navbar() {
                 <button className="btn-blue">Write Posts</button>
               </Link>
             </li>
-            <li>
-              <Link href={`/${user.username}`}>
-                {/* <img src={user?.photoURL} /> */}
-                <a>
-                  <Image
-                    src="/../public/google.png"
-                    alt="Picture of the author"
-                    width={30}
-                    height={30}
-                  />{" "}
-                </a>
-              </Link>
-            </li>
+            <li></li>
           </>
         )}
 
         {/* user is not signed OR has not created username */}
         {user ? (
-          <p>User logged in</p>
+          <>
+            <li>
+              {" "}
+              <p>{user.username}</p>
+            </li>
+            <li>
+              <button
+                className="btn-blue"
+                onClick={() => {
+                  logOutUser();
+                }}
+              >
+                {" "}
+                log out
+              </button>
+            </li>
+          </>
         ) : (
           <li>
             <Link href="/login">
@@ -50,7 +55,6 @@ function Navbar() {
             </Link>
           </li>
         )}
-        {user?.username && <h1>{user.username}</h1>}
       </ul>
     </nav>
   );

@@ -8,20 +8,6 @@ import { useState } from "react";
 // Max post to query per page
 const LIMIT = 1;
 
-export async function getServerSideProps() {
-  const postsQuery = firestore
-    .collectionGroup("posts")
-    .where("published", "==", true)
-    .orderBy("createdAt", "desc")
-    .limit(LIMIT);
-
-  const posts = (await postsQuery.get()).docs.map(postToJSON);
-
-  return {
-    props: { posts }, // will be passed to the page component as props
-  };
-}
-
 export default function Home(props: { posts: any }) {
   const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);

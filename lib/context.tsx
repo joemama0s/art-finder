@@ -51,6 +51,8 @@ export default function AuthContext({ children }: Props): ReactElement {
         const uid = user.uid;
         getUserDetails(uid);
         // ...
+      } else {
+        setUser(null);
       }
     });
   }, []);

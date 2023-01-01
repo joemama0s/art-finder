@@ -5,6 +5,7 @@ import UserContext from "../lib/context";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import AuthContext from "../lib/context";
+import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
