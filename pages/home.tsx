@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
 import { useState } from "react";
+import HomeSearchBar from "../components/HomeSearchBar";
 
 // Max post to query per page
 const LIMIT = 1;
@@ -53,8 +54,8 @@ export default function Home(props: { posts: any }) {
         <div>
           <h1 className="text-center pt-10">WELCOME TO ART-FINDER</h1>
         </div>
-        <div className="bg-blue-600 h-10 w-3/5 mx-auto mt-12">
-          <p>TODO Add Search bar component</p>
+        <div className="h-12 w-3/5 mx-auto mt-12">
+          <HomeSearchBar />
         </div>
         <div className="bg-green-500 h-24 w-4/5 mx-auto mt-20">
           <p>TODO Add topics bar component</p>
