@@ -39,7 +39,7 @@ function SignInButton() {
 
   // TODO This button looks wack
   return (
-    <button className="btn-google" onClick={signInWithGoogle}>
+    <button onClick={signInWithGoogle}>
       <Image
         src="/../public/google.png"
         alt="Picture of the author"
@@ -135,7 +135,7 @@ function UsernameForm() {
           isValid={isValid}
           loading={loading}
         />
-        <button type="submit" className="btn-green" disabled={!isValid}>
+        <button type="submit" disabled={!isValid}>
           Choose
         </button>
 
@@ -156,9 +156,9 @@ function UsernameMessage({ username, isValid, loading }) {
   if (loading) {
     return <p>Checking...</p>;
   } else if (isValid) {
-    return <p className="text-success">{username} is available!</p>;
+    return <p>{username} is available!</p>;
   } else if (username && !isValid) {
-    return <p className="text-danger">That username is taken!</p>;
+    return <p>That username is taken!</p>;
   } else {
     return <p></p>;
   }

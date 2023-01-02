@@ -3,7 +3,13 @@ import { useRouter } from "next/router";
 import { useContext, useRef, useState } from "react";
 import { useUser } from "../lib/context";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../lib/firebase";
+import {
+  auth,
+  provider,
+  addGoogleAuthUserToFirestore,
+  getUserWithUid,
+} from "../lib/firebase";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -33,6 +39,33 @@ export default function Login() {
       reportError({ message: getErrorMessage(err) });
     }
   }
+
+  const signInWithGoogle = async () => {
+    // TODO Need to do the following:
+    // 2. redirect
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const user = result.user;
+
+        const dbUser = await getUserWithUid(user.uid);
+        if (dbUser === undefined) {
+          console.log("tmp was undefiened");
+          await addGoogleAuthUserToFirestore(user);
+        }
+        router.push("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   // TODO USE THIS FOR MORE OPTIMIZED ERROR LOGGING
   // throw new Error("Please Select Profile Type");
@@ -166,24 +199,25 @@ export default function Login() {
                     aria-hidden="true"
                   ></div>
                 </div>
-                <form>
-                  <div className="flex flex-wrap -mx-3">
-                    <div className="w-full px-3">
-                      <button className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
-                        <svg
-                          className="w-4 h-12 fill-current text-white opacity-75 flex-shrink-0 mx-4"
-                          viewBox="0 0 16 16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
-                        </svg>
-                        <span className="flex-auto pl-16 pr-8 -ml-16">
-                          Continue with Google
-                        </span>
-                      </button>
-                    </div>
+                <div className="flex flex-wrap -mx-3">
+                  <div className="w-full px-3">
+                    <button
+                      onClick={() => signInWithGoogle()}
+                      className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center"
+                    >
+                      <svg
+                        className="w-4 h-12 fill-current text-white opacity-75 flex-shrink-0 mx-4"
+                        viewBox="0 0 16 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
+                      </svg>
+                      <span className="flex-auto pl-16 pr-8 -ml-16">
+                        Continue with Google
+                      </span>
+                    </button>
                   </div>
-                </form>
+                </div>
                 <div className="text-gray-600 text-center mt-6">
                   Don’t you have an account?{" "}
                   <Link

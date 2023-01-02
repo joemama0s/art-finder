@@ -54,7 +54,7 @@ function PostManager(post) {
   }
 
   return (
-    <main className={styles.container}>
+    <main>
       {post && (
         <>
           <section>
@@ -70,7 +70,7 @@ function PostManager(post) {
               {preview ? "Edit" : "Preview"}
             </button>
             <Link href={`/${post.username}/${post.slug}`}>
-              <button className="btn-blue">Live view</button>
+              <button>Live view</button>
             </Link>
             <DeletePostButton slug={slug} />
           </aside>
@@ -103,12 +103,12 @@ function PostForm({ defaultValues, postRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <div className="card">
+        <div>
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
         </div>
       )}
 
-      <div className={preview ? styles.hidden : styles.controls}>
+      <div>
         <ImageUploader />
 
         <textarea
@@ -120,19 +120,11 @@ function PostForm({ defaultValues, postRef, preview }) {
         ></textarea>
 
         <fieldset>
-          <input
-            className={styles.checkbox}
-            type="checkbox"
-            {...register("published")}
-          />
+          <input type="checkbox" {...register("published")} />
           <label>Published</label>
         </fieldset>
 
-        <button
-          type="submit"
-          className="btn-green"
-          disabled={!isDirty || !isValid}
-        >
+        <button type="submit" disabled={!isDirty || !isValid}>
           Save Changes
         </button>
       </div>
@@ -152,9 +144,5 @@ function DeletePostButton({ slug }) {
     }
   };
 
-  return (
-    <button className="btn-red" onClick={deletePost}>
-      Delete
-    </button>
-  );
+  return <button onClick={deletePost}>Delete</button>;
 }

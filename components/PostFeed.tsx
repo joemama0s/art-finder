@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export default function PostFeed({ posts, admin }) {
+  posts = ["", "", "", "", ""];
   return posts
     ? posts.map((post) => (
         <PostItem post={post} key={post.slug} admin={admin} />
@@ -10,46 +11,57 @@ export default function PostFeed({ posts, admin }) {
 
 function PostItem({ post, admin = false }) {
   // Naive method to calc word count and read time
-  const wordCount = post?.content.trim().split(/\s+/g).length;
-  const minutesToRead = (wordCount / 100 + 1).toFixed(0);
-
+  // const wordCount = post?.content.trim().split(/\s+/g).length;
+  // const minutesToRead = (wordCount / 100 + 1).toFixed(0);
   return (
-    <div className="card">
-      <Link href={`/${post.username}`}>
-        <a>
-          <strong>By @{post.username}</strong>
-        </a>
-      </Link>
-
-      <Link href={`/${post.username}/${post.slug}`}>
-        <h2>
-          <a>{post.title}</a>
-        </h2>
-      </Link>
-
-      <footer>
-        <span>
-          {wordCount} words. {minutesToRead} min read
-        </span>
-        <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
-      </footer>
-
-      {/* If admin view, show extra controls for user */}
-      {admin && (
-        <>
-          <Link href={`/admin/${post.slug}`}>
-            <h3>
-              <button className="btn-blue">Edit</button>
-            </h3>
-          </Link>
-
-          {post.published ? (
-            <p className="text-success">Live</p>
-          ) : (
-            <p className="text-danger">Unpublished</p>
-          )}
-        </>
-      )}
+    <div className="bg-blue-600 flex-initial w-11/12 mx-auto border border-green-500">
+      <div className="">
+        <div className="">joemama</div>
+        <p className="">my text</p>
+      </div>
+      <div className="">
+        <span className="">july 18</span>
+      </div>
     </div>
   );
+
+  // return (
+  //   <div className="card">
+  //     <Link href={`/${post.username}`}>
+  //       <a>
+  //         <strong>By @{post.username}</strong>
+  //       </a>
+  //     </Link>
+
+  //     <Link href={`/${post.username}/${post.slug}`}>
+  //       <h2>
+  //         <a>{post.title}</a>
+  //       </h2>
+  //     </Link>
+
+  //     <footer>
+  //       <span>
+  //         {wordCount} words. {minutesToRead} min read
+  //       </span>
+  //       <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
+  //     </footer>
+
+  //     {/* If admin view, show extra controls for user */}
+  //     {admin && (
+  //       <>
+  //         <Link href={`/admin/${post.slug}`}>
+  //           <h3>
+  //             <button className="btn-blue">Edit</button>
+  //           </h3>
+  //         </Link>
+
+  //         {post.published ? (
+  //           <p className="text-success">Live</p>
+  //         ) : (
+  //           <p className="text-danger">Unpublished</p>
+  //         )}
+  //       </>
+  //     )}
+  //   </div>
+  // );
 }

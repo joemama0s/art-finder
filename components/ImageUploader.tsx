@@ -42,13 +42,13 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="box">
+    <div>
       <Loader show={uploading} />
       {uploading && <h3>{progress}%</h3>}
 
       {!uploading && (
         <>
-          <label className="btn">
+          <label>
             📸 Upload Img
             <input
               type="file"
@@ -59,9 +59,7 @@ export default function ImageUploader() {
         </>
       )}
 
-      {downloadURL && (
-        <code className="upload-snippet">{`![alt](${downloadURL})`}</code>
-      )}
+      {downloadURL && <code>{`![alt](${downloadURL})`}</code>}
     </div>
   );
 }

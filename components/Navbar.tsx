@@ -8,55 +8,44 @@ import { logOutUser } from "../lib/firebase";
 function Navbar() {
   const { user, setUser } = useUser();
 
+  console.log("User from navbar", user);
+
   return (
-    <nav className="navbar">
-      <ul>
-        <li>
+    <div className="bg-gray-800 p-4 shadow-md">
+      <div className="container mx-auto max-w-4xl flex items-center justify-between">
+        <div className="flex-grow">
           <Link href="/">
-            <button className="btn-logo">FEED</button>
+            <a className="text-xl text-white font-bold no-underline">My App</a>
           </Link>
-        </li>
-
-        {/* user is signed-in and has username */}
-        {user?.username && (
-          <>
-            <li className="push-left">
-              <Link href="/admin">
-                <button className="btn-blue">Write Posts</button>
-              </Link>
-            </li>
-            <li></li>
-          </>
-        )}
-
-        {/* user is not signed OR has not created username */}
-        {user ? (
-          <>
-            <li>
-              {" "}
-              <p>{user.username}</p>
-            </li>
-            <li>
+        </div>
+        <div>
+          <Link href="/search">
+            <button className="w-16 h-12 p-2 font-bold text-sm text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal active:bg-teal-800 transition duration-300 ease-in-out hover:bg-teal-600 mr-2">
+              Search
+            </button>
+          </Link>
+          {user ? (
+            <div>
+              <p>signed in as {user.username}</p>
               <button
-                className="btn-blue"
-                onClick={() => {
-                  logOutUser();
-                }}
+                onClick={() => logOutUser()}
+                className="w-16 h-12 p-2 font-bold text-sm text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal active:bg-teal-800 transition duration-300 ease-in-out hover:bg-teal-600"
               >
-                {" "}
-                log out
+                logout
               </button>
-            </li>
-          </>
-        ) : (
-          <li>
-            <Link href="/login">
-              <button className="btn-blue">Log in</button>
-            </Link>
-          </li>
-        )}
-      </ul>
-    </nav>
+            </div>
+          ) : (
+            <div>
+              <Link href="/login">
+                <button className="w-16 h-12 p-2 font-bold text-sm text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal active:bg-teal-800 transition duration-300 ease-in-out hover:bg-teal-600">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

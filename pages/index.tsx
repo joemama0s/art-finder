@@ -12,7 +12,8 @@ export async function getServerSideProps() {
     .orderBy("createdAt", "desc")
     .limit(2);
 
-  const posts = (await postsQuery.get()).docs.map(postToPostStruct);
+  // const posts = (await postsQuery.get()).docs.map(postToPostStruct);
+  const posts: PostStruct = [];
 
   return {
     props: { posts: posts }, // will be passed to the page component as props
@@ -24,13 +25,13 @@ export default function Index(props: { posts: PostStruct[] }) {
   const [posts, setPosts] = useState(props.posts);
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden">
+    <div>
       {/*  Site header */}
       {/* <Header /> */}
       <Navbar />
 
       {/*  Page content */}
-      <main className="flex-grow">
+      <main>
         {/*  Page sections */}
         {/* <HeroHome />
         <Features />

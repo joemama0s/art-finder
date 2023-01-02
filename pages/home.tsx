@@ -24,6 +24,7 @@ export default function Home(props: { posts: any }) {
         ? fromMillis(last.createdAt)
         : last.createdAt;
 
+    // TODO Move this to the firestore file
     const query = firestore
       .collectionGroup("posts")
       .where("published", "==", true)
@@ -47,14 +48,20 @@ export default function Home(props: { posts: any }) {
         title="Home Page"
         description="Get the latest posts on our site"
       />
-      <h1> POSTS </h1>
-      {/* // TODO THIS IS INCORRECT BELOW */}
-      <PostFeed posts={posts} admin={undefined} />
-      {!loading && !postsEnd && (
-        <button onClick={getMorePosts}>Load more</button>
-      )}
-      <Loader show={loading} />
-      {postsEnd && "You have reached the end!"}
+      {/* TODO I think its h-full here? Not sure */}
+      <div className="container mx-auto bg-red-600 w-1/2 h-full">
+        <div>
+          <h1 className="text-center"> POSTS </h1>
+          <div>
+            <PostFeed posts={posts} admin={undefined} />
+          </div>
+          {!loading && !postsEnd && (
+            <button onClick={getMorePosts}>Load more</button>
+          )}
+          <Loader show={loading} />
+          {postsEnd && "You have reached the end!"}
+        </div>
+      </div>
     </main>
   );
 }

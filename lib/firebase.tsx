@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { useUser } from "./context";
+import { doc, setDoc } from "firebase/firestore";
 import { PostStruct } from "./../types/posts";
 
 // TODO This needs to be stored in a config file that is NOT pushed to github
@@ -29,10 +30,12 @@ export const auth = getAuth(app);
 export const firestore = firebase.firestore();
 export const storage = firebase.storage();
 export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
 
 export const increment = firebase.firestore.FieldValue.increment;
 export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
+const db = getFirestore(app);
 
 /**`
  * Gets a users/{uid} document with username
@@ -91,6 +94,26 @@ export function postToPostStruct(
     updatedAt: data!.updatedAt.toMillis(),
   };
   return postStruct;
+}
+
+export async function addGoogleAuthUserToFirestore(user: any) {
+  console.log("ADDING A NEW USER TO THE DB VIA GOOGLE");
+  await setDoc(doc(db, "users", user.uid), {
+    email: user.email,
+    uid: user.uid,
+    username: user.email,
+  });
+}
+
+/**`
+ * Gets a users/{uid} document with username
+ * @param  {string} uid
+ */
+export async function getUserWithUid(uid: String) {
+  const usersRef = firestore.collection("users");
+  const query = usersRef.where("uid", "==", uid).limit(1);
+  const userDoc = (await query.get()).docs[0];
+  return userDoc;
 }
 
 export const fromMillis = firebase.firestore.Timestamp.fromMillis;

@@ -60,14 +60,14 @@ export default function Post(props) {
   const { user: currentUser } = useContext(UserContext);
 
   return (
-    <main className={styles.container}>
+    <main>
       <Metatags title={post.title} description={post.title} />
 
       <section>
         <PostContent post={post} />
       </section>
 
-      <aside className="card">
+      <aside>
         <p>
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
@@ -84,7 +84,7 @@ export default function Post(props) {
 
         {currentUser?.uid === post.uid && (
           <Link href={`/admin/${post.slug}`}>
-            <button className="btn-blue">Edit Post</button>
+            <button>Edit Post</button>
           </Link>
         )}
       </aside>
