@@ -49,7 +49,24 @@ export default function Home(props: { posts: any }) {
         description="Get the latest posts on our site"
       />
       {/* TODO I think its h-full here? Not sure */}
-      <div className="container mx-auto bg-red-600 w-1/2 h-full">
+      <div className="flex-col bg-red-500 h-max mx-auto w-full">
+        <div>
+          <h1 className="text-center pt-10">WELCOME TO ART-FINDER</h1>
+        </div>
+        <div className="bg-blue-600 h-10 w-3/5 mx-auto mt-12">
+          <p>TODO Add Search bar component</p>
+        </div>
+        <div className="bg-green-500 h-24 w-4/5 mx-auto mt-20">
+          <p>TODO Add topics bar component</p>
+        </div>
+        <div className="bg-green-500 h-24 w-4/5 mx-auto mt-20">
+          <p>TODO Add featured artists component</p>
+        </div>
+        <div className="bg-green-500 h-screen w-4/5 mx-auto mt-20">
+          <p>TODO Add Featured art</p>
+        </div>
+      </div>
+      {/* <div className="container mx-auto bg-red-600 w-1/2 h-full">
         <div>
           <h1 className="text-center"> POSTS </h1>
           <div>
@@ -61,7 +78,7 @@ export default function Home(props: { posts: any }) {
           <Loader show={loading} />
           {postsEnd && "You have reached the end!"}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
