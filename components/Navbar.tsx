@@ -19,11 +19,6 @@ function Navbar() {
           </Link>
         </div>
         <div>
-          <Link href="/search">
-            <button className="w-16 h-12 p-2 font-bold text-sm text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:shadow-outline-teal active:bg-teal-800 transition duration-300 ease-in-out hover:bg-teal-600 mr-2">
-              Search
-            </button>
-          </Link>
           {user ? (
             <div>
               <p>signed in as {user.username}</p>
