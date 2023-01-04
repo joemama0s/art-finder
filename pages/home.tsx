@@ -5,6 +5,7 @@ import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 
 import { useState } from "react";
 import HomeSearchBar from "../components/HomeSearchBar";
+import FeaturedArt from "../components/FeaturedArt";
 
 // Max post to query per page
 const LIMIT = 1;
@@ -63,8 +64,8 @@ export default function Home(props: { posts: any }) {
         <div className="bg-green-500 h-24 w-4/5 mx-auto mt-20">
           <p>TODO Add featured artists component</p>
         </div>
-        <div className="bg-green-500 h-screen w-4/5 mx-auto mt-20">
-          <p>TODO Add Featured art</p>
+        <div className="h-screen w-4/5 mx-auto mt-20">
+          <FeaturedArt />
         </div>
       </div>
       {/* <div className="container mx-auto bg-red-600 w-1/2 h-full">
