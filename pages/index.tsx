@@ -12,8 +12,10 @@ export async function getServerSideProps() {
     .orderBy("createdAt", "desc")
     .limit(2);
 
+  //TODO I removed the actual call to the DB to stop queries on load every time we do development
+  // Readd later
   // const posts = (await postsQuery.get()).docs.map(postToPostStruct);
-  const posts: PostStruct = [];
+  const posts: PostStruct[] = [];
 
   return {
     props: { posts: posts }, // will be passed to the page component as props

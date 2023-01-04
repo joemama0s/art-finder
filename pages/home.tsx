@@ -50,8 +50,7 @@ export default function Home(props: { posts: any }) {
         title="Home Page"
         description="Get the latest posts on our site"
       />
-      {/* TODO I think its h-full here? Not sure */}
-      <div className="flex-col bg-red-500 h-max mx-auto w-full">
+      <div className="flex-col bg-gradient-to-b from-gray-100 to-white  h-max mx-auto w-full">
         <div>
           <h1 className="text-center pt-10">WELCOME TO ART-FINDER</h1>
         </div>

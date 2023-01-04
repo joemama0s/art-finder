@@ -12,44 +12,44 @@ function FeaturedArt() {
               <div className="w-1/2 ">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>
               <div className="w-1/2 ">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>
-              <div className="w-full">
+              <div className="">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>
             </div>
             <div className="flex flex-wrap w-1/2">
-              <div className="w-full ">
+              <div className="">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>
               <div className="w-1/2 ">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>
               <div className="w-1/2 ">
                 <Image
                   alt="gallery"
-                  className="block object-cover object-center w-full h-full rounded-lg"
+                  className="block object-cover object-center w-full h-full "
                   src={imgOne}
                 />
               </div>

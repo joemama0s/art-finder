@@ -34,6 +34,7 @@ export default function Login() {
     try {
       setLoading(true);
       await submitLogin();
+      router.push("/");
     } catch (err) {
       console.error(err);
       reportError({ message: getErrorMessage(err) });
@@ -41,8 +42,6 @@ export default function Login() {
   }
 
   const signInWithGoogle = async () => {
-    // TODO Need to do the following:
-    // 2. redirect
     signInWithPopup(auth, provider)
       .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -90,16 +89,6 @@ export default function Login() {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
-      // TODO ADD FIREBASE LOGIN
-      //   const amplifyUser = await Auth.signIn(usernameValue, passwordValue);
-      //   console.log(amplifyUser);
-      //   if (amplifyUser.attributes["custom:profileType"] === "employer") {
-      //     router.push("/employer_profile/" + amplifyUser.attributes["sub"]);
-      //   } else if (amplifyUser.attributes["custom:profileType"] === "driver") {
-      //     router.push("/driver_profile/" + amplifyUser.attributes["sub"]);
-      //   } else {
-      //     throw new Error("Unknown profile type");
-      //   }
     } catch (error) {
       // TODO ADD ERROR LOGGING TO USER
       reportError({ message: getErrorMessage(error) });
